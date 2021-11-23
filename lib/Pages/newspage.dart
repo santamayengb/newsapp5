@@ -13,6 +13,7 @@ class NewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xff6200EE),
         title: const Text("NewsApp"),
       ),
       body: WebView(
