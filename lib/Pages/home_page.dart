@@ -1,6 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp5/Routes/router.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:newsapp5/constant/new_category.dart';
 import 'package:newsapp5/cubit/newsfeed_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +29,9 @@ class HomePage extends StatelessWidget {
                                 context.read<NewsfeedCubit>().getNewsFeeds(e),
                             child: Text(
                               e.toUpperCase(),
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
                             )),
                       ))
                   .toList(),
@@ -68,7 +71,6 @@ class _NewsState extends State<News> {
       case Status.loaded:
         final data = state.newsFeedModel!;
         return ListView.builder(
-            padding: const EdgeInsets.all(5),
             itemCount: data.data.length,
             itemBuilder: (context, index) {
               final fdata = data.data[index];
@@ -76,44 +78,65 @@ class _NewsState extends State<News> {
                 onTap: () {
                   context.router.push(DetialNewsRoute(datum: fdata));
                 },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  height: 200,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        flex: 4,
+                        flex: 3,
                         child: SizedBox(
-                            width: 150,
-                            height: 200,
+                            width: 100,
+                            height: 100,
                             child: ClipRRect(
-                                child: Image.network(
-                              fdata.imageUrl,
+                                child: CachedNetworkImage(
+                              imageUrl: fdata.imageUrl,
                               fit: BoxFit.cover,
+                              placeholder: (context, String text) =>
+                                  const Center(child: Text("Loading image")),
                             ))),
                       ),
                       Expanded(
-                        flex: 6,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                fdata.author,
-                                style: const TextStyle(
-                                    color: Colors.orange, fontSize: 18),
-                              ),
-                              Text(
-                                fdata.content,
-                                maxLines: 8,
-                                softWrap: true,
-                                textAlign: TextAlign.justify,
-                              ),
-                              Text(
-                                  '${fdata.time.toUpperCase()} | ${fdata.date.toUpperCase()}')
-                            ],
+                        flex: 7,
+                        child: SizedBox(
+                          height: 100,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  fdata.author,
+                                  style: GoogleFonts.roboto(
+                                      color: const Color(0xFFFFB74D),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight
+                                          .w400), //GoogleFonts.poppins(
+                                ),
+                                SizedBox(
+                                  height: 60,
+                                  child: Text(
+                                    fdata.content,
+                                    textScaleFactor: 1.1,
+                                    maxLines: 3,
+                                    softWrap: true,
+                                    textAlign: TextAlign.justify,
+                                    style: GoogleFonts.roboto(
+                                        color: const Color(0xFF616161),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                                Text(
+                                  '${fdata.time.toUpperCase()} | ${fdata.date.toUpperCase()}',
+                                  style: GoogleFonts.roboto(
+                                      color: const Color(0xFF616161),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       )

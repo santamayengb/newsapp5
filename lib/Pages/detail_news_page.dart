@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:newsapp5/Model/model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:newsapp5/Routes/router.dart';
@@ -21,9 +22,8 @@ class DetialNewsPage extends StatelessWidget {
         body: Column(
           children: [
             Expanded(
-              child: Container(
-                color: Colors.amber,
-                height: 220,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                   width: 500,
                   child: Image.network(
@@ -42,16 +42,35 @@ class DetialNewsPage extends StatelessWidget {
                   children: [
                     Text(
                       datum.author,
-                      style: const TextStyle(color: Colors.orange),
+                      style: GoogleFonts.roboto(
+                        fontSize: 12,
+                        color: const Color(0xffFFB74D),
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                     Text(
                       datum.title,
+                      style: GoogleFonts.roboto(
+                        fontSize: 14,
+                        color: const Color(0xff616161),
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    Text(datum.date.toUpperCase(),
-                        style: const TextStyle(color: Colors.orange)),
+                    Text(
+                      datum.date.toUpperCase(),
+                      style: GoogleFonts.roboto(
+                        fontSize: 14,
+                        color: const Color(0xff757575),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                     Text(
                       datum.content,
-                      textAlign: TextAlign.justify,
+                      style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        color: const Color(0xff757575),
+                        fontWeight: FontWeight.w400,
+                      ),
                     )
                   ],
                 ),
@@ -63,7 +82,14 @@ class DetialNewsPage extends StatelessWidget {
                       context.router.push(
                           NewsRoute(readMore: datum.readMoreUrl.toString()));
                     },
-                    child: const Text("Read More")))
+                    child: Text(
+                      "Read More",
+                      style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        color: const Color(0xffFFB74D),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )))
           ],
         ));
   }
