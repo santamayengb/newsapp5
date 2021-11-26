@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsapp5/cubit/Tabs/tabstate_cubit.dart';
+import 'package:newsapp5/cubit/Tabs/selectedtab_cubit.dart';
 import 'package:newsapp5/cubit/newfeeds/newsfeed_cubit.dart';
 
 class MultiProviderWrapper extends StatelessWidget {
@@ -15,7 +15,7 @@ class MultiProviderWrapper extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<NewsfeedCubit>(create: (context) => NewsfeedCubit()),
-        BlocProvider<TabstateCubit>(create: (context) => TabstateCubit()),
+        BlocProvider<SelectedTabCubit>(create: (context) => SelectedTabCubit()),
       ],
       child: child,
     );
