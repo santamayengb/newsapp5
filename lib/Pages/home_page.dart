@@ -1,24 +1,21 @@
 import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp5/Routes/router.dart';
 import 'package:newsapp5/constant/new_category.dart';
+import 'package:newsapp5/cubit/Tabs/tabstate_cubit.dart';
 import 'package:newsapp5/cubit/newfeeds/newsfeed_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  String selectedItem = "all";
-
-  @override
   Widget build(BuildContext context) {
+    final state = context.watch<TabstateCubit>().state;
+    log(state.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff6200EE),
@@ -27,21 +24,19 @@ class _HomePageState extends State<HomePage> {
           preferredSize: const Size.fromHeight(50),
           child: Flexible(
             child: ListView(
+              addSemanticIndexes: true,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               children: newsCategories
                   .map((e) => TextButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                            selectedItem == e
+                            state.selected == e
                                 ? const Color(0xff6200BE)
                                 : Colors.transparent),
                       ),
                       onPressed: () {
-                        setState(() {
-                          selectedItem = e;
-                          log(selectedItem);
-                        });
+                        context.read<TabstateCubit>().selectTab(e);
                         context.read<NewsfeedCubit>().getNewsFeeds(e);
                       },
                       child: Padding(
@@ -91,6 +86,9 @@ class _NewsState extends State<News> {
           onRefresh: () =>
               context.read<NewsfeedCubit>().getNewsFeeds(data.category),
           child: ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics(),
+              ),
               itemCount: data.data.length,
               itemBuilder: (context, index) {
                 final fdata = data.data[index];
