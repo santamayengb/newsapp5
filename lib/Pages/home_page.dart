@@ -1,13 +1,21 @@
+import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp5/Routes/router.dart';
 import 'package:newsapp5/constant/new_category.dart';
-import 'package:newsapp5/cubit/newsfeed_cubit.dart';
+import 'package:newsapp5/cubit/newfeeds/newsfeed_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String selectedItem = "all";
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +30,27 @@ class HomePage extends StatelessWidget {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               children: newsCategories
-                  .map((e) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child: TextButton(
-                            onPressed: () =>
-                                context.read<NewsfeedCubit>().getNewsFeeds(e),
-                            child: Text(
-                              e.toUpperCase(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                            )),
-                      ))
+                  .map((e) => TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            selectedItem == e
+                                ? const Color(0xff6200BE)
+                                : Colors.transparent),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          selectedItem = e;
+                          log(selectedItem);
+                        });
+                        context.read<NewsfeedCubit>().getNewsFeeds(e);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: Text(
+                          e.toUpperCase(),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      )))
                   .toList(),
             ),
           ),
@@ -96,7 +113,8 @@ class _NewsState extends State<News> {
                                 imageUrl: fdata.imageUrl,
                                 fit: BoxFit.cover,
                                 placeholder: (context, String text) =>
-                                    const Center(child: Text("Loading image")),
+                                    const Center(
+                                        child: CircularProgressIndicator()),
                               ))),
                         ),
                         Expanded(
