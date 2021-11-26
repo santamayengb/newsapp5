@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp5/Routes/router.dart';
 import 'package:newsapp5/constant/new_category.dart';
-import 'package:newsapp5/cubit/Tabs/tabstate_cubit.dart';
+import 'package:newsapp5/cubit/Tabs/selectedtab_cubit.dart';
 import 'package:newsapp5/cubit/newfeeds/newsfeed_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,44 +12,57 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<TabstateCubit>().state;
-    log(state.toString());
+    final state = context.watch<SelectedTabCubit>().state;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff6200EE),
         title: const Text("NewsApp"),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50),
-          child: Flexible(
-            child: ListView(
-              addSemanticIndexes: true,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: newsCategories
-                  .map((e) => TextButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            state.selected == e
-                                ? const Color(0xff6200BE)
-                                : Colors.transparent),
-                      ),
-                      onPressed: () {
-                        context.read<TabstateCubit>().selectTab(e);
-                        context.read<NewsfeedCubit>().getNewsFeeds(e);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        child: Text(
-                          e.toUpperCase(),
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      )))
-                  .toList(),
-            ),
-          ),
+          child: HeaderTabs(state: state),
         ),
       ),
       body: const News(),
+    );
+  }
+}
+
+class HeaderTabs extends StatelessWidget {
+  const HeaderTabs({
+    Key? key,
+    required this.state,
+  }) : super(key: key);
+
+  final TabstateState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: ListView(
+        addSemanticIndexes: true,
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        children: newsCategories
+            .map((e) => TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(state.selected == e
+                      ? const Color(0xff6200BE)
+                      : Colors.transparent),
+                ),
+                onPressed: () {
+                  context.read<SelectedTabCubit>().selectTab(e);
+                  context.read<NewsfeedCubit>().getNewsFeeds(e);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  child: Text(
+                    e.toUpperCase(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                )))
+            .toList(),
+      ),
     );
   }
 }
