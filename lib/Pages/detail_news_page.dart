@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:newsapp5/Model/model.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:newsapp5/Routes/router.dart';
+// import 'package:auto_route/auto_route.dart';
+// import 'package:newsapp5/Routes/router.dart';
 
 class DetialNewsPage extends StatelessWidget {
   const DetialNewsPage({
@@ -26,6 +26,7 @@ class DetialNewsPage extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
+                flex: 3,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -38,19 +39,28 @@ class DetialNewsPage extends StatelessWidget {
                 ),
               ),
               Expanded(
+                flex: 5,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        datum.author,
-                        style: GoogleFonts.roboto(
-                          fontSize: 12,
-                          color: const Color(0xffFFB74D),
-                          fontWeight: FontWeight.w400,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            datum.author,
+                            style: GoogleFonts.roboto(
+                              fontSize: 12,
+                              color: const Color(0xffFFB74D),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.bookmark))
+                        ],
                       ),
                       Text(
                         datum.title,
@@ -81,10 +91,11 @@ class DetialNewsPage extends StatelessWidget {
                 ),
               ),
               Expanded(
+                  flex: 2,
                   child: TextButton(
                       onPressed: () {
-                        context.router.push(
-                            NewsRoute(readMore: datum.readMoreUrl.toString()));
+                        // context.router.push(
+                        //     NewsRoute(readMore: datum.readMoreUrl.toString()));
                       },
                       child: Text(
                         "Read More",

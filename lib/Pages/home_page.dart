@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp5/Pages/headtabs.dart';
-import 'package:newsapp5/Pages/news.dart';
+import 'package:newsapp5/Pages/components/headtabs.dart';
+import 'package:newsapp5/Pages/components/news.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

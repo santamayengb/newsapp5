@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:newsapp5/App/multi_provider_wrapper.dart';
-import 'package:newsapp5/Routes/routes.gr.dart';
+import '../Routes/router.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -15,9 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProviderWrapper(
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         routeInformationParser: appRouter.defaultRouteParser(),
         routerDelegate: appRouter.delegate(),
-        debugShowCheckedModeBanner: false,
       ),
     );
   }
