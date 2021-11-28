@@ -43,6 +43,12 @@ class AppRouter extends _i3.RootStackRouter {
           routeData: routeData,
           child: _i1.DetialNewsPage(key: args.key, datum: args.datum));
     },
+    NewsRoute.name: (routeData) {
+      final args = routeData.argsAs<NewsRouteArgs>();
+      return _i3.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i1.NewsPage(key: args.key, readMore: args.readMore));
+    },
     BookmarkRoute.name: (routeData) {
       return _i3.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i1.BookmarkPage());
@@ -58,7 +64,9 @@ class AppRouter extends _i3.RootStackRouter {
               children: [
                 _i3.RouteConfig(HomeRoute.name, path: '', parent: HomeTab.name),
                 _i3.RouteConfig(DetialNewsRoute.name,
-                    path: 'detial-news-page', parent: HomeTab.name)
+                    path: 'detial-news-page', parent: HomeTab.name),
+                _i3.RouteConfig(NewsRoute.name,
+                    path: 'news-page', parent: HomeTab.name)
               ]),
           _i3.RouteConfig(BookmarkTab.name,
               path: 'empty-router-page',
@@ -122,6 +130,29 @@ class DetialNewsRouteArgs {
   @override
   String toString() {
     return 'DetialNewsRouteArgs{key: $key, datum: $datum}';
+  }
+}
+
+/// generated route for [_i1.NewsPage]
+class NewsRoute extends _i3.PageRouteInfo<NewsRouteArgs> {
+  NewsRoute({_i4.Key? key, required String readMore})
+      : super(name,
+            path: 'news-page',
+            args: NewsRouteArgs(key: key, readMore: readMore));
+
+  static const String name = 'NewsRoute';
+}
+
+class NewsRouteArgs {
+  const NewsRouteArgs({this.key, required this.readMore});
+
+  final _i4.Key? key;
+
+  final String readMore;
+
+  @override
+  String toString() {
+    return 'NewsRouteArgs{key: $key, readMore: $readMore}';
   }
 }
 

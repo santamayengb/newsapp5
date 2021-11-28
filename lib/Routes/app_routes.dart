@@ -18,7 +18,10 @@ import '../Pages/pages.dart';
               path: '',
               page: HomePage,
             ),
-            AutoRoute(page: DetialNewsPage)
+            AutoRoute(
+              page: DetialNewsPage,
+            ),
+            AutoRoute(page: NewsPage),
           ],
         ),
         AutoRoute(

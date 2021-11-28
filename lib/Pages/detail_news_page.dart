@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:newsapp5/Model/model.dart';
-// import 'package:auto_route/auto_route.dart';
-// import 'package:newsapp5/Routes/router.dart';
 
-class DetialNewsPage extends StatelessWidget {
+import 'package:newsapp5/Model/model.dart';
+import 'package:newsapp5/main.dart';
+
+import '../Routes/router.dart';
+
+class DetialNewsPage extends StatefulWidget {
   const DetialNewsPage({
     Key? key,
     required this.datum,
@@ -12,6 +14,11 @@ class DetialNewsPage extends StatelessWidget {
 
   final Datum datum;
 
+  @override
+  State<DetialNewsPage> createState() => _DetialNewsPageState();
+}
+
+class _DetialNewsPageState extends State<DetialNewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +39,7 @@ class DetialNewsPage extends StatelessWidget {
                   child: SizedBox(
                     width: 500,
                     child: Image.network(
-                      datum.imageUrl,
+                      widget.datum.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -50,7 +57,7 @@ class DetialNewsPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            datum.author,
+                            widget.datum.author,
                             style: GoogleFonts.roboto(
                               fontSize: 12,
                               color: const Color(0xffFFB74D),
@@ -58,12 +65,24 @@ class DetialNewsPage extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await box.put(
+                                    'News',
+                                    Datum(
+                                        author: widget.datum.author,
+                                        content: widget.datum.content,
+                                        imageUrl: widget.datum.imageUrl,
+                                        time: widget.datum.time,
+                                        title: widget.datum.title,
+                                        url: widget.datum.url,
+                                        date: widget.datum.date));
+                                context.router.push(const BookmarkRoute());
+                              },
                               icon: const Icon(Icons.bookmark))
                         ],
                       ),
                       Text(
-                        datum.title,
+                        widget.datum.title,
                         style: GoogleFonts.roboto(
                           fontSize: 14,
                           color: const Color(0xff616161),
@@ -71,7 +90,7 @@ class DetialNewsPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        datum.date.toUpperCase(),
+                        widget.datum.date.toUpperCase(),
                         style: GoogleFonts.roboto(
                           fontSize: 14,
                           color: const Color(0xff757575),
@@ -79,7 +98,7 @@ class DetialNewsPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        datum.content,
+                        widget.datum.content,
                         style: GoogleFonts.roboto(
                           fontSize: 16,
                           color: const Color(0xff757575),
@@ -94,8 +113,8 @@ class DetialNewsPage extends StatelessWidget {
                   flex: 2,
                   child: TextButton(
                       onPressed: () {
-                        // context.router.push(
-                        //     NewsRoute(readMore: datum.readMoreUrl.toString()));
+                        context.router.push(NewsRoute(
+                            readMore: widget.datum.readMoreUrl.toString()));
                       },
                       child: Text(
                         "Read More",
