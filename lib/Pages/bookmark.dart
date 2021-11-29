@@ -18,10 +18,16 @@ class _BookmarkPageState extends State<BookmarkPage> {
       body: FutureBuilder(
           future: Hive.openBox('NewsBookmarkBox'),
           builder: (context, snapshot) {
-            final data = snapshot.data;
+            final box = Hive.box('NewsBookmarkBox');
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
-                return Text(data.toString());
+                return ListView.builder(
+                    itemCount: box.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(box.get(index).toString()),
+                      );
+                    });
               } else {
                 return const Text("No Data");
               }
