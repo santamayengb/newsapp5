@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:newsapp5/Model/model.dart';
 
 class BookmarkPage extends StatefulWidget {
   const BookmarkPage({Key? key}) : super(key: key);
@@ -16,16 +17,17 @@ class _BookmarkPageState extends State<BookmarkPage> {
         title: const Text("Bookmark"),
       ),
       body: FutureBuilder(
-          future: Hive.openBox('NewsBookmarkBox'),
+          future: Hive.openBox('newsBookmarkBox'),
           builder: (context, snapshot) {
-            final box = Hive.box('NewsBookmarkBox');
+            final box = Hive.box('newsBookmarkBox');
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
                 return ListView.builder(
                     itemCount: box.length,
                     itemBuilder: (context, index) {
+                      final news = box.get(index) as Datum;
                       return ListTile(
-                        title: Text(box.get(index).toString()),
+                        title: Text(news.author),
                       );
                     });
               } else {

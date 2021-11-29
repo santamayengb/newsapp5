@@ -67,10 +67,10 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                           IconButton(
                               onPressed: () async {
                                 final newsBookmark =
-                                    Hive.box('NewsBookmarkBox');
+                                    Hive.box('newsBookmarkBox');
                                 newsBookmark.add(Datum(
-                                    author: "author",
-                                    content: "content",
+                                    author: widget.datum.author,
+                                    content: widget.datum.content,
                                     imageUrl: "imageUrl",
                                     time: "time",
                                     title: "title",
