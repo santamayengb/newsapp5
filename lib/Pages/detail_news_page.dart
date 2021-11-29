@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:newsapp5/Model/model.dart';
-import 'package:newsapp5/main.dart';
 
 import '../Routes/router.dart';
 
@@ -66,17 +66,16 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                           ),
                           IconButton(
                               onPressed: () async {
-                                await box.put(
-                                    'News',
-                                    Datum(
-                                        author: widget.datum.author,
-                                        content: widget.datum.content,
-                                        imageUrl: widget.datum.imageUrl,
-                                        time: widget.datum.time,
-                                        title: widget.datum.title,
-                                        url: widget.datum.url,
-                                        date: widget.datum.date));
-                                context.router.push(const BookmarkRoute());
+                                final newsBookmark =
+                                    Hive.box('NewsBookmarkBox');
+                                newsBookmark.add(Datum(
+                                    author: "author",
+                                    content: "content",
+                                    imageUrl: "imageUrl",
+                                    time: "time",
+                                    title: "title",
+                                    url: "url",
+                                    date: "date"));
                               },
                               icon: const Icon(Icons.bookmark))
                         ],
