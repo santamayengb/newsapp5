@@ -71,11 +71,11 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                                 newsBookmark.add(Datum(
                                     author: widget.datum.author,
                                     content: widget.datum.content,
-                                    imageUrl: "imageUrl",
-                                    time: "time",
-                                    title: "title",
-                                    url: "url",
-                                    date: "date"));
+                                    imageUrl: widget.datum.imageUrl,
+                                    time: widget.datum.time,
+                                    title: widget.datum.title,
+                                    url: widget.datum.url,
+                                    date: widget.datum.date));
                               },
                               icon: const Icon(Icons.bookmark))
                         ],
