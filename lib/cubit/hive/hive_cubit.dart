@@ -11,6 +11,7 @@ class HiveCubit extends Cubit<HiveState> {
 
   Future<void> addData(DataModel dataModel) async {
     await Hive.openBox('Box');
+    await Hive.box('Box').add(dataModel);
     final newState = state.copyWith(
       dataModel: [...state.dataModel, dataModel],
     );
