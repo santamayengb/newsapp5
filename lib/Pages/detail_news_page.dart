@@ -1,18 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp5/Model/model.dart';
+import 'package:newsapp5/cubit/hive/hive_cubit.dart';
 
 import '../Routes/router.dart';
 
 class DetialNewsPage extends StatefulWidget {
   const DetialNewsPage({
     Key? key,
-    required this.datum,
+    required this.dataModel,
   }) : super(key: key);
 
-  final Datum datum;
+  final DataModel dataModel;
 
   @override
   State<DetialNewsPage> createState() => _DetialNewsPageState();
@@ -21,6 +23,11 @@ class DetialNewsPage extends StatefulWidget {
 class _DetialNewsPageState extends State<DetialNewsPage> {
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<HiveCubit>().state;
+    final data = state.dataModel;
+
+    log(data.toString());
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff6200EE),
@@ -39,7 +46,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                   child: SizedBox(
                     width: 500,
                     child: Image.network(
-                      widget.datum.imageUrl,
+                      widget.dataModel.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -57,7 +64,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.datum.author,
+                            widget.dataModel.author,
                             style: GoogleFonts.roboto(
                               fontSize: 12,
                               color: const Color(0xffFFB74D),
@@ -66,22 +73,22 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                           ),
                           IconButton(
                               onPressed: () async {
-                                final newsBookmark =
-                                    Hive.box('newsBookmarkBox');
-                                newsBookmark.add(Datum(
-                                    author: widget.datum.author,
-                                    content: widget.datum.content,
-                                    imageUrl: widget.datum.imageUrl,
-                                    time: widget.datum.time,
-                                    title: widget.datum.title,
-                                    url: widget.datum.url,
-                                    date: widget.datum.date));
+                                await context.read<HiveCubit>().addData(
+                                      DataModel(
+                                          author: widget.dataModel.author,
+                                          content: '',
+                                          date: '',
+                                          imageUrl: '',
+                                          time: '',
+                                          title: '',
+                                          url: ''),
+                                    );
                               },
                               icon: const Icon(Icons.bookmark))
                         ],
                       ),
                       Text(
-                        widget.datum.title,
+                        widget.dataModel.title,
                         style: GoogleFonts.roboto(
                           fontSize: 14,
                           color: const Color(0xff616161),
@@ -89,7 +96,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                         ),
                       ),
                       Text(
-                        widget.datum.date.toUpperCase(),
+                        widget.dataModel.date.toUpperCase(),
                         style: GoogleFonts.roboto(
                           fontSize: 14,
                           color: const Color(0xff757575),
@@ -97,7 +104,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                         ),
                       ),
                       Text(
-                        widget.datum.content,
+                        widget.dataModel.content,
                         style: GoogleFonts.roboto(
                           fontSize: 16,
                           color: const Color(0xff757575),
@@ -113,7 +120,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                   child: TextButton(
                       onPressed: () {
                         context.router.push(NewsRoute(
-                            readMore: widget.datum.readMoreUrl.toString()));
+                            readMore: widget.dataModel.readMoreUrl.toString()));
                       },
                       child: Text(
                         "Read More",

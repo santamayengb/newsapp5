@@ -18,7 +18,7 @@ class NewsFeedModelAdapter extends TypeAdapter<NewsFeedModel> {
     };
     return NewsFeedModel(
       category: fields[0] as String,
-      data: (fields[1] as List).cast<Datum>(),
+      data: (fields[1] as List).cast<DataModel>(),
       success: fields[2] as bool,
     );
   }
@@ -46,17 +46,17 @@ class NewsFeedModelAdapter extends TypeAdapter<NewsFeedModel> {
           typeId == other.typeId;
 }
 
-class DatumAdapter extends TypeAdapter<Datum> {
+class DatumAdapter extends TypeAdapter<DataModel> {
   @override
   final int typeId = 2;
 
   @override
-  Datum read(BinaryReader reader) {
+  DataModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Datum(
+    return DataModel(
       author: fields[0] as String,
       content: fields[1] as String,
       imageUrl: fields[2] as String,
@@ -69,7 +69,7 @@ class DatumAdapter extends TypeAdapter<Datum> {
   }
 
   @override
-  void write(BinaryWriter writer, Datum obj) {
+  void write(BinaryWriter writer, DataModel obj) {
     writer
       ..writeByte(8)
       ..writeByte(0)
@@ -109,7 +109,7 @@ NewsFeedModel _$NewsFeedModelFromJson(Map<String, dynamic> json) =>
     NewsFeedModel(
       category: json['category'] as String,
       data: (json['data'] as List<dynamic>)
-          .map((e) => Datum.fromJson(e as Map<String, dynamic>))
+          .map((e) => DataModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       success: json['success'] as bool,
     );
@@ -121,7 +121,7 @@ Map<String, dynamic> _$NewsFeedModelToJson(NewsFeedModel instance) =>
       'success': instance.success,
     };
 
-Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
+DataModel _$DatumFromJson(Map<String, dynamic> json) => DataModel(
       author: json['author'] as String,
       content: json['content'] as String,
       imageUrl: json['imageUrl'] as String,
@@ -132,7 +132,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       date: json['date'] as String,
     );
 
-Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
+Map<String, dynamic> _$DatumToJson(DataModel instance) => <String, dynamic>{
       'author': instance.author,
       'content': instance.content,
       'imageUrl': instance.imageUrl,

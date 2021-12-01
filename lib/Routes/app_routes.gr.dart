@@ -41,7 +41,7 @@ class AppRouter extends _i3.RootStackRouter {
       final args = routeData.argsAs<DetialNewsRouteArgs>();
       return _i3.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i1.DetialNewsPage(key: args.key, datum: args.datum));
+          child: _i1.DetialNewsPage(key: args.key, dataModel: args.datum));
     },
     NewsRoute.name: (routeData) {
       final args = routeData.argsAs<NewsRouteArgs>();
@@ -112,7 +112,7 @@ class HomeRoute extends _i3.PageRouteInfo<void> {
 
 /// generated route for [_i1.DetialNewsPage]
 class DetialNewsRoute extends _i3.PageRouteInfo<DetialNewsRouteArgs> {
-  DetialNewsRoute({_i4.Key? key, required _i5.Datum datum})
+  DetialNewsRoute({_i4.Key? key, required _i5.DataModel datum})
       : super(name,
             path: 'detial-news-page',
             args: DetialNewsRouteArgs(key: key, datum: datum));
@@ -125,7 +125,7 @@ class DetialNewsRouteArgs {
 
   final _i4.Key? key;
 
-  final _i5.Datum datum;
+  final _i5.DataModel datum;
 
   @override
   String toString() {

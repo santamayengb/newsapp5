@@ -14,7 +14,7 @@ class NewsFeedModel extends HiveObject {
   @HiveField(0)
   final String category;
   @HiveField(1)
-  final List<Datum> data;
+  final List<DataModel> data;
   @HiveField(2)
   final bool success;
 
@@ -26,8 +26,8 @@ class NewsFeedModel extends HiveObject {
 
 @HiveType(typeId: 2)
 @JsonSerializable()
-class Datum {
-  Datum({
+class DataModel {
+  DataModel({
     required this.author,
     required this.content,
     required this.imageUrl,
@@ -54,7 +54,8 @@ class Datum {
   @HiveField(7)
   final String date;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
+  factory DataModel.fromJson(Map<String, dynamic> json) =>
+      _$DatumFromJson(json);
 
   Map<String, dynamic> toJson() => _$DatumToJson(this);
 }

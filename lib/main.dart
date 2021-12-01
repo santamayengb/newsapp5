@@ -9,7 +9,7 @@ main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NewsFeedModelAdapter());
   Hive.registerAdapter(DatumAdapter());
-  await Hive.openBox('NewsBookmarkBox');
+
   runApp(MyApp(
     appRouter: AppRouter(),
   ));
