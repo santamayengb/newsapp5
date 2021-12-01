@@ -8,7 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NewsFeedModelAdapter());
-  Hive.registerAdapter(DatumAdapter());
+  Hive.registerAdapter(DataModelAdapter());
 
   runApp(MyApp(
     appRouter: AppRouter(),

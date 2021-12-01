@@ -41,7 +41,7 @@ class AppRouter extends _i3.RootStackRouter {
       final args = routeData.argsAs<DetialNewsRouteArgs>();
       return _i3.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i1.DetialNewsPage(key: args.key, dataModel: args.datum));
+          child: _i1.DetialNewsPage(key: args.key, dataModel: args.dataModel));
     },
     NewsRoute.name: (routeData) {
       final args = routeData.argsAs<NewsRouteArgs>();
@@ -112,24 +112,24 @@ class HomeRoute extends _i3.PageRouteInfo<void> {
 
 /// generated route for [_i1.DetialNewsPage]
 class DetialNewsRoute extends _i3.PageRouteInfo<DetialNewsRouteArgs> {
-  DetialNewsRoute({_i4.Key? key, required _i5.DataModel datum})
+  DetialNewsRoute({_i4.Key? key, required _i5.DataModel dataModel})
       : super(name,
             path: 'detial-news-page',
-            args: DetialNewsRouteArgs(key: key, datum: datum));
+            args: DetialNewsRouteArgs(key: key, dataModel: dataModel));
 
   static const String name = 'DetialNewsRoute';
 }
 
 class DetialNewsRouteArgs {
-  const DetialNewsRouteArgs({this.key, required this.datum});
+  const DetialNewsRouteArgs({this.key, required this.dataModel});
 
   final _i4.Key? key;
 
-  final _i5.DataModel datum;
+  final _i5.DataModel dataModel;
 
   @override
   String toString() {
-    return 'DetialNewsRouteArgs{key: $key, datum: $datum}';
+    return 'DetialNewsRouteArgs{key: $key, dataModel: $dataModel}';
   }
 }
 

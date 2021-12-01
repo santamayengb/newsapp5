@@ -46,7 +46,7 @@ class NewsFeedModelAdapter extends TypeAdapter<NewsFeedModel> {
           typeId == other.typeId;
 }
 
-class DatumAdapter extends TypeAdapter<DataModel> {
+class DataModelAdapter extends TypeAdapter<DataModel> {
   @override
   final int typeId = 2;
 
@@ -96,7 +96,7 @@ class DatumAdapter extends TypeAdapter<DataModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DatumAdapter &&
+      other is DataModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -121,7 +121,7 @@ Map<String, dynamic> _$NewsFeedModelToJson(NewsFeedModel instance) =>
       'success': instance.success,
     };
 
-DataModel _$DatumFromJson(Map<String, dynamic> json) => DataModel(
+DataModel _$DataModelFromJson(Map<String, dynamic> json) => DataModel(
       author: json['author'] as String,
       content: json['content'] as String,
       imageUrl: json['imageUrl'] as String,
@@ -132,7 +132,7 @@ DataModel _$DatumFromJson(Map<String, dynamic> json) => DataModel(
       date: json['date'] as String,
     );
 
-Map<String, dynamic> _$DatumToJson(DataModel instance) => <String, dynamic>{
+Map<String, dynamic> _$DataModelToJson(DataModel instance) => <String, dynamic>{
       'author': instance.author,
       'content': instance.content,
       'imageUrl': instance.imageUrl,

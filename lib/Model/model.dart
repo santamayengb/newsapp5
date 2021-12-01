@@ -55,7 +55,7 @@ class DataModel {
   final String date;
 
   factory DataModel.fromJson(Map<String, dynamic> json) =>
-      _$DatumFromJson(json);
+      _$DataModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DatumToJson(this);
+  Map<String, dynamic> toJson() => _$DataModelToJson(this);
 }

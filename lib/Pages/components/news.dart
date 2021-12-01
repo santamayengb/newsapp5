@@ -43,7 +43,7 @@ class _NewsState extends State<News> {
                 final fdata = data.data[index];
                 return GestureDetector(
                   onTap: () {
-                    context.router.push(DetialNewsRoute(datum: fdata));
+                    context.router.push(DetialNewsRoute(dataModel: fdata));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(10),
