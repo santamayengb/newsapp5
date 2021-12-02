@@ -117,7 +117,7 @@ class _NewsState extends State<News> {
               }),
         );
       case Status.error:
-        return const Text("error");
+        return const Center(child: Text("No Internet Connection"));
     }
   }
 }
