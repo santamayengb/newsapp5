@@ -9,7 +9,7 @@ main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NewsFeedModelAdapter());
   Hive.registerAdapter(DataModelAdapter());
-
+  await Hive.openBox<DataModel>('Box');
   runApp(MyApp(
     appRouter: AppRouter(),
   ));

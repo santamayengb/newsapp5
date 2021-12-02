@@ -7,12 +7,12 @@ class Service {
   static const baseUrl = "https://inshortsapi.vercel.app/news?category=";
 
   Future<NewsFeedModel> getData(String category) async {
-    try {
-      final res = await http.get(Uri.parse(baseUrl + category));
-      final newfeed = NewsFeedModel.fromJson(jsonDecode(res.body));
-      return newfeed;
-    } catch (e) {
-      return throw Exception(e.toString());
+
+    final res = await http.get(Uri.parse(baseUrl + category));
+    if (res.statusCode == 200) {
+      return NewsFeedModel.fromJson(json.decode(res.body));
+    } else {
+      throw Exception('Failed to load data');
     }
   }
 }

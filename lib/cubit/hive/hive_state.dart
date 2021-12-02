@@ -1,7 +1,5 @@
 part of 'hive_cubit.dart';
 
-enum HiveStatus { intial, loading, loaded, error }
-
 class HiveState extends Equatable {
   const HiveState({
     required this.dataModel,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,11 +21,6 @@ class DetialNewsPage extends StatefulWidget {
 class _DetialNewsPageState extends State<DetialNewsPage> {
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<HiveCubit>().state;
-    final data = state.dataModel;
-
-    log(data.toString());
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff6200EE),
@@ -76,12 +69,12 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                                 await context.read<HiveCubit>().addData(
                                       DataModel(
                                           author: widget.dataModel.author,
-                                          content: '',
-                                          date: '',
-                                          imageUrl: '',
-                                          time: '',
-                                          title: '',
-                                          url: ''),
+                                          content: widget.dataModel.content,
+                                          date: widget.dataModel.date,
+                                          imageUrl: widget.dataModel.imageUrl,
+                                          time: widget.dataModel.time,
+                                          title: widget.dataModel.title,
+                                          url: widget.dataModel.url),
                                     );
                               },
                               icon: const Icon(Icons.bookmark))

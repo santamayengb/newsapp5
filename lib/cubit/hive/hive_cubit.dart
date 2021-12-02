@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,15 +12,17 @@ class HiveCubit extends Cubit<HiveState> {
   HiveCubit() : super(const HiveState(dataModel: []));
 
   Future<void> addData(DataModel dataModel) async {
-    await Hive.openBox('Box');
-    await Hive.box('Box').add(dataModel);
-    final newState = state.copyWith(
-      dataModel: [...state.dataModel, dataModel],
-    );
-    emit(newState);
+    final box = Hive.box<DataModel>('Box');
+    box.add(dataModel);
+
+    emit(HiveState(dataModel: box.values.toList()));
   }
 
-  void deleteData(DataModel dataModel) {}
+  void deleteData(int dataModel) {
+    final box = Hive.box<DataModel>('Box');
+    log(dataModel.toString());
+    box.deleteAt(dataModel);
+  }
 
   void updateData(DataModel dataModel) {}
 }
