@@ -20,17 +20,19 @@ class HiveCubit extends Cubit<HiveState> {
     if (isLiked == true) {
       log('HiveCubit if Block: ${isLiked.toString()}');
       box.put(title, dataModel);
-      updateData();
+      emit(HiveState(dataModel: box.values.toList(), isLiked: isLiked));
     }
     if (isLiked == false) {
       log('HiveCubit Else block: ${isLiked.toString()}');
       box.delete(title);
-      updateData();
+      emit(HiveState(dataModel: box.values.toList(), isLiked: isLiked));
     }
   }
 
   updateData() {
-    emit(HiveState(dataModel: box.values.toList()));
+    emit(HiveState(
+      dataModel: box.values.toList(),
+    ));
     log("Updated");
   }
 
