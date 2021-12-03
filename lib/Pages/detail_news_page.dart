@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
 import 'package:newsapp5/Model/model.dart';
+import 'package:newsapp5/cubit/hive/hive_cubit.dart';
 
 import '../Routes/router.dart';
 
@@ -67,10 +68,23 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                           LikeButton(
                               isLiked: false,
                               likeBuilder: (bool isLiked) {
-                                return Icon(
-                                  Icons.bookmark,
-                                  color: isLiked ? Colors.red : Colors.grey,
-                                );
+                                if (isLiked) {
+                                  context
+                                      .read<HiveCubit>()
+                                      .isLiked(isLiked, widget.dataModel);
+                                  return const Icon(
+                                    Icons.bookmark,
+                                    color: Colors.red,
+                                  );
+                                } else {
+                                  context
+                                      .read<HiveCubit>()
+                                      .isLiked(isLiked, widget.dataModel);
+                                  return const Icon(
+                                    Icons.bookmark_outline,
+                                    color: Colors.grey,
+                                  );
+                                }
                               })
                         ],
                       ),

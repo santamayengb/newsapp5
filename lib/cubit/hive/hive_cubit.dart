@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -8,20 +10,21 @@ import 'package:newsapp5/Model/model.dart';
 part 'hive_state.dart';
 
 class HiveCubit extends Cubit<HiveState> {
-  HiveCubit() : super(const HiveState(dataModel: []));
+  HiveCubit() : super(const HiveState(dataModel: [], isLiked: false));
 
   final box = Hive.box<DataModel>('Box');
 
-  Future<void> addData(DataModel dataModel) async {
+  isLiked(bool isLiked, DataModel dataModel) {
     final title = dataModel.title.substring(0, 15);
-    box.put(title, dataModel);
-    updateData();
-  }
-
-  deleteData(String title) async {
-    await box.delete(title);
-
-    emit(HiveState(dataModel: box.values.toList()));
+    if (isLiked == true) {
+      log(isLiked.toString());
+      box.put(title, dataModel);
+      updateData();
+    } else {
+      log(isLiked.toString());
+      box.delete(title);
+      updateData();
+    }
   }
 
   updateData() {
