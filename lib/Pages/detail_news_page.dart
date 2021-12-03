@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:like_button/like_button.dart';
 import 'package:newsapp5/Model/model.dart';
-import 'package:newsapp5/cubit/hive/hive_cubit.dart';
 
 import '../Routes/router.dart';
 
