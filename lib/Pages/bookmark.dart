@@ -37,6 +37,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
                             MaterialStateProperty.all(Colors.white)),
                     onPressed: () {
                       context.read<HiveCubit>().clearAll();
+                      context.read<HiveCubit>().updateData();
                     },
                     child: const Text("Clear All")),
               )
@@ -76,7 +77,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
                         onPressed: () => {
                               context
                                   .read<HiveCubit>()
-                                  .isLiked(false, news[index])
+                                  .isLiked(false, news[index]),
                             },
                         icon: const Icon(Icons.remove)))
               ],

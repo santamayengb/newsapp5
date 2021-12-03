@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:like_button/like_button.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:newsapp5/Model/model.dart';
 import 'package:newsapp5/cubit/hive/hive_cubit.dart';
 
@@ -20,6 +20,7 @@ class DetialNewsPage extends StatefulWidget {
 }
 
 class _DetialNewsPageState extends State<DetialNewsPage> {
+  bool isLiked = false;
   @override
   void initState() {
     context.read<HiveCubit>().updateData();
@@ -71,27 +72,13 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          LikeButton(
-                              isLiked: false,
-                              likeBuilder: (bool isLiked) {
-                                if (isLiked) {
-                                  context
-                                      .read<HiveCubit>()
-                                      .isLiked(isLiked, widget.dataModel);
-                                  return const Icon(
-                                    Icons.bookmark,
-                                    color: Colors.red,
-                                  );
-                                } else {
-                                  context
-                                      .read<HiveCubit>()
-                                      .isLiked(isLiked, widget.dataModel);
-                                  return const Icon(
-                                    Icons.bookmark_outline,
-                                    color: Colors.grey,
-                                  );
-                                }
-                              })
+                          IconButton(
+                              onPressed: () {
+                                context
+                                    .read<HiveCubit>()
+                                    .isLiked(true, widget.dataModel);
+                              },
+                              icon: const Icon(Icons.bookmark_border))
                         ],
                       ),
                       Text(

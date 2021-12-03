@@ -10,13 +10,5 @@ class HiveState extends Equatable {
   final bool? isLiked;
 
   @override
-  List<Object?> get props => [dataModel];
-
-  HiveState copyWith({
-    List<DataModel>? dataModel,
-  }) {
-    return HiveState(
-      dataModel: dataModel ?? this.dataModel,
-    );
-  }
+  List<Object?> get props => [dataModel, isLiked];
 }
