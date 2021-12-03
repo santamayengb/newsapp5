@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:like_button/like_button.dart';
 import 'package:newsapp5/Model/model.dart';
 import 'package:newsapp5/cubit/hive/hive_cubit.dart';
 
@@ -64,20 +65,14 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          IconButton(
-                              onPressed: () async {
-                                await context.read<HiveCubit>().addData(
-                                      DataModel(
-                                          author: widget.dataModel.author,
-                                          content: widget.dataModel.content,
-                                          date: widget.dataModel.date,
-                                          imageUrl: widget.dataModel.imageUrl,
-                                          time: widget.dataModel.time,
-                                          title: widget.dataModel.title,
-                                          url: widget.dataModel.url),
-                                    );
-                              },
-                              icon: const Icon(Icons.bookmark)),
+                          LikeButton(
+                              isLiked: false,
+                              likeBuilder: (bool isLiked) {
+                                return Icon(
+                                  Icons.bookmark,
+                                  color: isLiked ? Colors.red : Colors.grey,
+                                );
+                              })
                         ],
                       ),
                       Text(

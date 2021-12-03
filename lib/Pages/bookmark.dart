@@ -75,7 +75,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
                     child: IconButton(
                         onPressed: () => context
                             .read<HiveCubit>()
-                            .deleteData(news[index].title, index),
+                            .deleteData(news[index].title),
                         icon: const Icon(Icons.remove)))
               ],
             ),

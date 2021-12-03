@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -20,10 +18,8 @@ class HiveCubit extends Cubit<HiveState> {
     updateData();
   }
 
-  deleteData(String title, int index) {
-    log(title);
-    log(index.toString());
-    box.deleteAt(index);
+  deleteData(String title) async {
+    await box.delete(title);
 
     emit(HiveState(dataModel: box.values.toList()));
   }
