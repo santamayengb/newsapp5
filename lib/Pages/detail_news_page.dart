@@ -20,7 +20,7 @@ class DetialNewsPage extends StatefulWidget {
 }
 
 class _DetialNewsPageState extends State<DetialNewsPage> {
-  bool isLiked = false;
+  late bool isLiked = false;
   @override
   Widget build(BuildContext context) {
     context.watch<HiveCubit>().state.isLiked;
@@ -76,9 +76,9 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                                     .isLiked(isLiked, widget.dataModel);
                                 isLiked = !isLiked;
                               },
-                              child: isLiked
-                                  ? const Icon(Icons.bookmark_border)
-                                  : const Icon(Icons.bookmark)),
+                              child: !isLiked
+                                  ? const Icon(Icons.bookmark)
+                                  : const Icon(Icons.bookmark_border))
                         ],
                       ),
                       Text(

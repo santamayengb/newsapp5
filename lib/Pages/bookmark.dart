@@ -12,12 +12,6 @@ class BookmarkPage extends StatefulWidget {
 
 class _BookmarkPageState extends State<BookmarkPage> {
   @override
-  void initState() {
-    context.read<HiveCubit>().updateData();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final state = context.watch<HiveCubit>().state;
     final news = state.dataModel;
