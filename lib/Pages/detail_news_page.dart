@@ -21,6 +21,12 @@ class DetialNewsPage extends StatefulWidget {
 
 class _DetialNewsPageState extends State<DetialNewsPage> {
   @override
+  void initState() {
+    context.read<HiveCubit>().updateData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

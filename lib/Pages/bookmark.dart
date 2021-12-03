@@ -73,7 +73,12 @@ class _BookmarkPageState extends State<BookmarkPage> {
                 Expanded(
                     flex: 1,
                     child: IconButton(
-                        onPressed: () => {}, icon: const Icon(Icons.remove)))
+                        onPressed: () => {
+                              context
+                                  .read<HiveCubit>()
+                                  .isLiked(false, news[index])
+                            },
+                        icon: const Icon(Icons.remove)))
               ],
             ),
           );
