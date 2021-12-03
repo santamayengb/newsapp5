@@ -77,7 +77,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                                           url: widget.dataModel.url),
                                     );
                               },
-                              icon: const Icon(Icons.bookmark))
+                              icon: const Icon(Icons.bookmark)),
                         ],
                       ),
                       Text(
