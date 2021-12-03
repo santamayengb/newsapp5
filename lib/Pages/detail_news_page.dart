@@ -24,6 +24,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
   @override
   Widget build(BuildContext context) {
     context.watch<HiveCubit>().state.isLiked;
+    context.read<HiveCubit>().state.isLiked;
     context.read<HiveCubit>().updateData();
 
     return Scaffold(
