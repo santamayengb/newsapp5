@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
 
 import 'package:newsapp5/Model/model.dart';
 import 'package:newsapp5/cubit/hive/hive_cubit.dart';
@@ -20,10 +23,11 @@ class DetialNewsPage extends StatefulWidget {
 }
 
 class _DetialNewsPageState extends State<DetialNewsPage> {
-  bool isLiked = false;
+  late bool isLiked;
   @override
   void initState() {
     context.read<HiveCubit>().updateData();
+
     super.initState();
   }
 
@@ -72,13 +76,24 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          IconButton(
-                              onPressed: () {
+                          LikeButton(
+                            onTap: (isLiked) async {
+                              this.isLiked = !isLiked;
+                              return !isLiked;
+                            },
+                            likeBuilder: (isLiked) {
+                              if (isLiked == true) {
                                 context
                                     .read<HiveCubit>()
                                     .isLiked(true, widget.dataModel);
-                              },
-                              icon: const Icon(Icons.bookmark_border))
+                              }
+                              if (isLiked == false) {
+                                context
+                                    .read<HiveCubit>()
+                                    .isLiked(false, widget.dataModel);
+                              }
+                            },
+                          )
                         ],
                       ),
                       Text(

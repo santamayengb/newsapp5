@@ -31,6 +31,7 @@ class HiveCubit extends Cubit<HiveState> {
 
   updateData() {
     emit(HiveState(dataModel: box.values.toList()));
+    log("Updated");
   }
 
   clearAll() async {
