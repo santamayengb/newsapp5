@@ -71,6 +71,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
                               context
                                   .read<HiveCubit>()
                                   .isLiked(false, news[index]),
+                              context.read<HiveCubit>().updateData()
                             },
                         icon: const Icon(Icons.remove)))
               ],

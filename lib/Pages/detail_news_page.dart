@@ -20,7 +20,7 @@ class DetialNewsPage extends StatefulWidget {
 }
 
 class _DetialNewsPageState extends State<DetialNewsPage> {
-  late bool isLiked = false;
+  late bool isLiked = true;
   @override
   Widget build(BuildContext context) {
     context.watch<HiveCubit>().state.isLiked;
@@ -29,7 +29,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff6200EE),
-          title: const Text("Bookmark"),
+          title: const Text("News Detail Page"),
         ),
         body: RefreshIndicator(
           onRefresh: () async {
@@ -77,7 +77,12 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                                 isLiked = !isLiked;
                               },
                               child: !isLiked
-                                  ? const Icon(Icons.bookmark)
+                                  ? Row(
+                                      children: const [
+                                        Icon(Icons.bookmark),
+                                        Text("Added")
+                                      ],
+                                    )
                                   : const Icon(Icons.bookmark_border))
                         ],
                       ),
