@@ -23,10 +23,6 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
   late bool isLiked = true;
   @override
   Widget build(BuildContext context) {
-    context.watch<HiveCubit>().state.isLiked;
-    context.read<HiveCubit>().state.isLiked;
-    context.read<HiveCubit>().updateData();
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff6200EE),
@@ -77,14 +73,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                                     .isLiked(isLiked, widget.dataModel);
                                 isLiked = !isLiked;
                               },
-                              child: !isLiked
-                                  ? Row(
-                                      children: const [
-                                        Icon(Icons.bookmark),
-                                        Text("Added")
-                                      ],
-                                    )
-                                  : const Icon(Icons.bookmark_border))
+                              child: const Icon(Icons.bookmark_border))
                         ],
                       ),
                       Text(
