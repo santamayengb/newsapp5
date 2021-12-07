@@ -10,22 +10,18 @@ import 'package:newsapp5/Model/model.dart';
 part 'hive_state.dart';
 
 class HiveCubit extends Cubit<HiveState> {
-  HiveCubit() : super(const HiveState(dataModel: []));
+  HiveCubit(Box<DataModel> box) : super(const HiveState(dataModel: [])){
+    box.
+  }
 
   final box = Hive.box<DataModel>('Box');
 
-  isLiked(bool isLiked, DataModel dataModel) {
-    final title = dataModel.title.substring(0, 15);
-
-    if (isLiked == true) {
-      log('HiveCubit if Block: ${isLiked.toString()}');
-      box.put(title, dataModel);
-      emit(HiveState(dataModel: box.values.toList(), isLiked: isLiked));
-    }
-    if (isLiked == false) {
-      log('HiveCubit Else block: ${isLiked.toString()}');
-      box.delete(title);
-      emit(HiveState(dataModel: box.values.toList(), isLiked: isLiked));
+  toggleLike(DataModel dataModel) {
+    final chk = box.get(dataModel.author);
+    if (chk == null) {
+      box.put(dataModel.author, dataModel);
+    } else {
+      log(chk.toString());
     }
   }
 
