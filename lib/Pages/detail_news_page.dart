@@ -21,11 +21,17 @@ class DetialNewsPage extends StatefulWidget {
 
 class _DetialNewsPageState extends State<DetialNewsPage> {
   late bool isLiked = true;
+  late String title = '';
+
+  @override
+  void initState() {
+    context.read<HiveCubit>().updateData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     context.watch<HiveCubit>().state.isLiked;
-    context.read<HiveCubit>().state.isLiked;
-    context.read<HiveCubit>().updateData();
 
     return Scaffold(
         appBar: AppBar(
@@ -76,6 +82,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                                     .read<HiveCubit>()
                                     .isLiked(isLiked, widget.dataModel);
                                 isLiked = !isLiked;
+                                title = widget.dataModel.title;
                               },
                               child: !isLiked
                                   ? Row(
