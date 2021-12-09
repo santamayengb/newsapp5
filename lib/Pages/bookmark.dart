@@ -26,12 +26,10 @@ class _BookmarkPageState extends State<BookmarkPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
+                    onPressed: () => context.read<HiveCubit>().clearAll(),
                     style: ButtonStyle(
                         foregroundColor:
                             MaterialStateProperty.all(Colors.white)),
-                    onPressed: () {
-                      context.read<HiveCubit>().clearAll();
-                    },
                     child: const Text("Clear All")),
               )
             ],

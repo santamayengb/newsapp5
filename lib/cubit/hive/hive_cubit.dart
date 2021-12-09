@@ -18,7 +18,7 @@ class HiveCubit extends Cubit<HiveState> {
     emit(HiveState(dataModel: [...box.values.toList()]));
   }
 
-  isAvailable(DataModel dataModel) {
+  bool isAvailable(DataModel dataModel) {
     if (box.containsKey(dataModel.author)) {
       updateData();
       return true;
