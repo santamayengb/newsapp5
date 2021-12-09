@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:newsapp5/App/multi_provider_wrapper.dart';
 import 'package:newsapp5/Model/model.dart';
+=======
+import 'package:hive/hive.dart';
+
+import 'package:newsapp5/App/multi_provider_wrapper.dart';
+import 'package:newsapp5/Model/model.dart';
+
+>>>>>>> d5a505e91f1332394aad2cef813d94ebbbebd55c
 import '../Routes/router.dart';
 
 class MyApp extends StatelessWidget {
@@ -14,6 +22,8 @@ class MyApp extends StatelessWidget {
   final Box<DataModel> box;
 
   final AppRouter appRouter;
+
+  final Box<DataModel> box;
 
   @override
   Widget build(BuildContext context) {

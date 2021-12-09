@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,8 +24,12 @@ class DetialNewsPage extends StatefulWidget {
 class _DetialNewsPageState extends State<DetialNewsPage> {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final isAvailable = context.watch<HiveCubit>();
 
+=======
+    context.watch<HiveCubit>().toggleLike;
+>>>>>>> d5a505e91f1332394aad2cef813d94ebbbebd55c
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff6200EE),
@@ -68,12 +74,25 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                             ),
                           ),
                           TextButton(
+<<<<<<< HEAD
                               onPressed: () => context
                                   .read<HiveCubit>()
                                   .toggleLike(widget.dataModel),
                               child: isAvailable.isAvailable(widget.dataModel)
                                   ? const Text('Added')
                                   : const Text('Add'))
+=======
+                              onPressed: () {
+                                context
+                                    .read<HiveCubit>()
+                                    .toggleLike(widget.dataModel);
+                                isLiked = !isLiked;
+                                log(isLiked.toString());
+                              },
+                              child: isLiked
+                                  ? const Icon(Icons.bookmark_border)
+                                  : const Icon(Icons.bookmark_add_outlined))
+>>>>>>> d5a505e91f1332394aad2cef813d94ebbbebd55c
                         ],
                       ),
                       Text(
