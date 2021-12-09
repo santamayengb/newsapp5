@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:newsapp5/Routes/router.dart';
 
 import '../Pages/pages.dart';

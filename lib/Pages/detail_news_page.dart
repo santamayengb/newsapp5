@@ -20,18 +20,9 @@ class DetialNewsPage extends StatefulWidget {
 }
 
 class _DetialNewsPageState extends State<DetialNewsPage> {
-  late bool isLiked = true;
-  late String title = '';
-
-  @override
-  void initState() {
-    context.read<HiveCubit>().updateData();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    context.watch<HiveCubit>().state.isLiked;
+    final isAvailable = context.watch<HiveCubit>();
 
     return Scaffold(
         appBar: AppBar(
@@ -77,21 +68,12 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                             ),
                           ),
                           TextButton(
-                              onPressed: () {
-                                context
-                                    .read<HiveCubit>()
-                                    .isLiked(isLiked, widget.dataModel);
-                                isLiked = !isLiked;
-                                title = widget.dataModel.title;
-                              },
-                              child: !isLiked
-                                  ? Row(
-                                      children: const [
-                                        Icon(Icons.bookmark),
-                                        Text("Added")
-                                      ],
-                                    )
-                                  : const Icon(Icons.bookmark_border))
+                              onPressed: () => context
+                                  .read<HiveCubit>()
+                                  .toggleLike(widget.dataModel),
+                              child: isAvailable.isAvailable(widget.dataModel)
+                                  ? const Text('Added')
+                                  : const Text('Add'))
                         ],
                       ),
                       Text(
