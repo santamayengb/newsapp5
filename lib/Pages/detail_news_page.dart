@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +25,7 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
   late bool isLiked = true;
   @override
   Widget build(BuildContext context) {
+    context.watch<HiveCubit>().toggleLike;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff6200EE),
@@ -70,10 +73,13 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                               onPressed: () {
                                 context
                                     .read<HiveCubit>()
-                                    .isLiked(isLiked, widget.dataModel);
+                                    .toggleLike(widget.dataModel);
                                 isLiked = !isLiked;
+                                log(isLiked.toString());
                               },
-                              child: const Icon(Icons.bookmark_border))
+                              child: isLiked
+                                  ? const Icon(Icons.bookmark_border)
+                                  : const Icon(Icons.bookmark_add_outlined))
                         ],
                       ),
                       Text(

@@ -10,7 +10,10 @@ main() async {
   Hive.registerAdapter(NewsFeedModelAdapter());
   Hive.registerAdapter(DataModelAdapter());
   await Hive.openBox<DataModel>('Box');
+  final box = Hive.box<DataModel>('box');
+
   runApp(MyApp(
+    box: box,
     appRouter: AppRouter(),
   ));
 }

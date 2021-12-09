@@ -10,11 +10,9 @@ import 'package:newsapp5/Model/model.dart';
 part 'hive_state.dart';
 
 class HiveCubit extends Cubit<HiveState> {
-  HiveCubit(Box<DataModel> box) : super(const HiveState(dataModel: [])){
-    box.
-  }
+  HiveCubit(this.box) : super(const HiveState(dataModel: []));
 
-  final box = Hive.box<DataModel>('Box');
+  final Box<DataModel> box;
 
   toggleLike(DataModel dataModel) {
     final chk = box.get(dataModel.author);
