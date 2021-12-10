@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -14,17 +16,14 @@ class HiveCubit extends Cubit<HiveState> {
   }
 
   toggleLike(DataModel dataModel) {
-    box.put(dataModel.author, dataModel);
-    emit(HiveState(dataModel: [...box.values.toList()]));
-  }
-
-  bool isAvailable(DataModel dataModel) {
     if (box.containsKey(dataModel.author)) {
-      updateData();
-      return true;
+      log('delete');
+      box.delete(dataModel.author);
+      emit(HiveState(dataModel: [...box.values.toList()], isLiked: true));
     } else {
-      updateData();
-      return false;
+      log('added');
+      box.put(dataModel.author, dataModel);
+      emit(HiveState(dataModel: [...box.values.toList()], isLiked: false));
     }
   }
 

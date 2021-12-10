@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +24,7 @@ class DetialNewsPage extends StatefulWidget {
 class _DetialNewsPageState extends State<DetialNewsPage> {
   @override
   Widget build(BuildContext context) {
-    final isAvailable = context.watch<HiveCubit>();
+    final b = context.watch<HiveCubit>().state.isLiked;
 
     return Scaffold(
         appBar: AppBar(
@@ -68,12 +70,14 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                             ),
                           ),
                           TextButton(
-                              onPressed: () => context
-                                  .read<HiveCubit>()
-                                  .toggleLike(widget.dataModel),
-                              child: isAvailable.isAvailable(widget.dataModel)
-                                  ? const Text('Added')
-                                  : const Text('Add'))
+                              onPressed: () {
+                                log(b.toString());
+                                context
+                                    .read<HiveCubit>()
+                                    .toggleLike(widget.dataModel);
+                              },
+                              child:
+                                  b! ? const Text('Add') : const Text('Added')),
                         ],
                       ),
                       Text(
