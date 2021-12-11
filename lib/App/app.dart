@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:newsapp5/App/multi_provider_wrapper.dart';
 import 'package:newsapp5/Model/model.dart';
+
 import '../Routes/router.dart';
 
 class MyApp extends StatelessWidget {

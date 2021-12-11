@@ -65,8 +65,9 @@ class _BookmarkPageState extends State<BookmarkPage> {
                 Expanded(
                     flex: 1,
                     child: IconButton(
-                        onPressed: () =>
-                            context.read<HiveCubit>().delete(news[index]),
+                        onPressed: () => {
+                              context.read<HiveCubit>().delete(news[index]),
+                            },
                         icon: const Icon(Icons.remove)))
               ],
             ),
@@ -76,16 +77,3 @@ class _BookmarkPageState extends State<BookmarkPage> {
     );
   }
 }
-
-
-// ListTile(
-//             title: Text(news[index].title),
-//             subtitle: Text(news[index].content),
-//             trailing: IconButton(
-//               icon: const Icon(Icons.delete),
-//               onPressed: () {
-//                 log(index.toString());
-//                 context.read<HiveCubit>().deleteData(news[index].title);
-//               },
-//             ),
-//           );

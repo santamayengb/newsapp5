@@ -17,27 +17,34 @@ class HiveCubit extends Cubit<HiveState> {
 
   toggleLike(DataModel dataModel) {
     if (box.containsKey(dataModel.author)) {
-      log('delete');
       box.delete(dataModel.author);
-      emit(HiveState(dataModel: [...box.values.toList()], isLiked: true));
+      emit(HiveState(dataModel: [...box.values.toList()]));
     } else {
-      log('added');
       box.put(dataModel.author, dataModel);
-      emit(HiveState(dataModel: [...box.values.toList()], isLiked: false));
+      emit(HiveState(dataModel: [...box.values.toList()]));
+    }
+  }
+
+  bool isAvailable(DataModel dataModel) {
+    if (box.containsKey(dataModel.author)) {
+      return true;
+    } else {
+      return false;
     }
   }
 
   delete(DataModel dataModel) {
     box.delete(dataModel.author);
-    updateData();
-  }
 
-  updateData() {
     emit(HiveState(dataModel: [...box.values.toList()]));
   }
 
-  clearAll() {
-    box.clear();
-    emit(HiveState(dataModel: [...box.values.toList()]));
+  clearAll() async {
+    try {
+      await box.clear();
+      emit(HiveState(dataModel: [...box.values.toList()]));
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +22,7 @@ class DetialNewsPage extends StatefulWidget {
 class _DetialNewsPageState extends State<DetialNewsPage> {
   @override
   Widget build(BuildContext context) {
-    final b = context.watch<HiveCubit>().state.isLiked;
+    final isBookmark = context.watch<HiveCubit>().isAvailable(widget.dataModel);
 
     return Scaffold(
         appBar: AppBar(
@@ -70,14 +68,19 @@ class _DetialNewsPageState extends State<DetialNewsPage> {
                             ),
                           ),
                           TextButton(
-                              onPressed: () {
-                                log(b.toString());
-                                context
-                                    .read<HiveCubit>()
-                                    .toggleLike(widget.dataModel);
-                              },
-                              child:
-                                  b! ? const Text('Add') : const Text('Added')),
+                            onPressed: () {
+                              context
+                                  .read<HiveCubit>()
+                                  .toggleLike(widget.dataModel);
+                              Scaffold.of(context).showBottomSheet((context) =>
+                                  isBookmark
+                                      ? const Text("Removed from Bookmark")
+                                      : const Text("Added to Bookmark"));
+                            },
+                            child: isBookmark
+                                ? const Text('added')
+                                : const Text('Add'),
+                          ),
                         ],
                       ),
                       Text(

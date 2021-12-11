@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:newsapp5/Model/model.dart';
+import 'package:newsapp5/Serivce/service.dart';
 import 'package:newsapp5/cubit/Tabs/selectedtab_cubit.dart';
 import 'package:newsapp5/cubit/hive/hive_cubit.dart';
 
 import 'package:newsapp5/cubit/newfeeds/newsfeed_cubit.dart';
+import 'package:newsapp5/repository/repository.dart';
 
 class MultiProviderWrapper extends StatelessWidget {
   const MultiProviderWrapper({
@@ -16,15 +18,28 @@ class MultiProviderWrapper extends StatelessWidget {
 
   final Widget child;
   final Box<DataModel> box;
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider<NewsfeedCubit>(create: (context) => NewsfeedCubit()),
-        BlocProvider<SelectedTabCubit>(create: (context) => SelectedTabCubit()),
-        BlocProvider<HiveCubit>(create: (context) => HiveCubit(box)),
+        RepositoryProvider(
+          create: (context) => BoxRepo(box),
+        ),
+        RepositoryProvider(create: (context) => NewsFeedRepository()),
       ],
-      child: child,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<NewsfeedCubit>(
+              create: (context) =>
+                  NewsfeedCubit(context.read<NewsFeedRepository>())),
+          BlocProvider<SelectedTabCubit>(
+              create: (context) => SelectedTabCubit()),
+          BlocProvider<HiveCubit>(
+              create: (context) => HiveCubit(context.read<BoxRepo>().box)),
+        ],
+        child: child,
+      ),
     );
   }
 }
